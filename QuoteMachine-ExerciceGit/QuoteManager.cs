@@ -51,12 +51,12 @@ namespace QuoteMachine_ExerciceGit
             {
                 foreach (var quote in _quotes)
                 {
-                    sw.WriteLine($"\"{quote.Text}\";\"{quote.Author}\"");
+                    sw.WriteLine($"{quote.Text};{quote.Author}");
                 }
             }
 
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/save-to-file");
+            //throw new NotImplementedException("À implémenter dans feature/save-to-file");
         }
 
         public void LoadFromCSVFile(string path)
