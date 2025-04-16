@@ -11,40 +11,40 @@ namespace QuoteMachineTests
             _manager = new QuoteManager();
         }
 
-        //[Fact]
-        //public void GetRandomQuote_ShouldReturnNonNullQuote()
-        //{
-        //    var quote = _manager.GetRandomQuote();
-        //    Assert.NotNull(quote);
-        //    Assert.IsType<Quote>(quote);
-        //}
+        [Fact]
+        public void GetRandomQuote_ShouldReturnNonNullQuote()
+        {
+            var quote = _manager.GetRandomQuote();
+            Assert.NotNull(quote);
+            Assert.IsType<Quote>(quote);
+        }
 
-        //[Fact]
-        //public void AddQuote_ShouldIncreaseQuoteCount()
-        //{
-        //    int countBefore = _manager.GetAllQuotes().Count;
-        //    _manager.AddQuote("Test", "Moi");
-        //    int countAfter = _manager.GetAllQuotes().Count;
-        //    Assert.Equal(++countBefore, countAfter);
-        //}
+        [Fact]
+        public void AddQuote_ShouldIncreaseQuoteCount()
+        {
+            int countBefore = _manager.GetAllQuotes().Count;
+            _manager.AddQuote("Test", "Moi");
+            int countAfter = _manager.GetAllQuotes().Count;
+            Assert.Equal(++countBefore, countAfter);
+        }
 
-        //[Fact]
-        //public void SaveToFile_ShouldCreateFile()
-        //{
-        //    var path = "test_quotes.csv";
-        //    _manager.SaveToCSVFile(path);
-        //    Assert.True(File.Exists(path));
-        //    File.Delete(path);
-        //}
+        [Fact]
+        public void SaveToFile_ShouldCreateFile()
+        {
+            var path = "test_quotes.csv";
+            _manager.SaveToCSVFile(path);
+            Assert.True(File.Exists(path));
+            File.Delete(path);
+        }
 
-        //[Fact]
-        //public void SaveToFile_ShouldThrowIfNotInCSVExtension()
-        //{
-        //    var path = "fichier-invalide.txt"; // nom invalide
+        [Fact]
+        public void SaveToFile_ShouldThrowIfNotInCSVExtension()
+        {
+            var path = "fichier-invalide.txt"; // nom invalide
 
-        //    var ex = Assert.Throws<QuoteFileException>(() => _manager.SaveToCSVFile(path));
-        //    Assert.Contains("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv", ex.Message);
-        //}
+            var ex = Assert.Throws<QuoteFileException>(() => _manager.SaveToCSVFile(path));
+            Assert.Contains("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv", ex.Message);
+        }
 
         [Fact]
         public void LoadFromFile_ShouldAppendQuotesToList()
