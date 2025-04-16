@@ -50,19 +50,32 @@ namespace QuoteMachine_ExerciceGit
 
         public void LoadFromCSVFile(string path)
         {
-            //Avant de commencer, décommenter les tests suivants:
-            //LoadFromFile_ShouldAppendQuotesToList
-            //LoadFromFile_ShouldThrowIfFileMissing
-            //LoadFromFile_ShouldThrowIfNotInCSVExtension
+            if (!IsCSVFile(path))
+            {
+                throw new QuoteFileException("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv");
+            }
 
-            //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
+            if (!File.Exists(path))
+            {
+                throw new QuoteFileException("Erreur lors du chargement : le fichier n'existe pas");
+            }
 
-            throw new NotImplementedException("À implémenter dans feature/load-from-file");
+            //https://stackoverflow.com/questions/5282999/reading-csv-file-and-storing-values-into-an-array
+            using (StreamReader reader = new StreamReader(path))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    _quotes.Add(new Quote() { Text = values[0], Author = values[1] });
+                }
+            }
         }
 
         public List<Quote> GetAllQuotes()
         {
-            return _quotes; // Pas besoin d'ajouter de test pour cette méthode
+            return _quotes;
         }
 
         private bool IsCSVFile(string path)
