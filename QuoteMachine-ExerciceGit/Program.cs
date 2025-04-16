@@ -55,30 +55,53 @@ static void AfficherMenu()
 
 static void ShowRandomQuote(QuoteManager manager)
 {
-    Console.WriteLine("[Simulation] Une citation aléatoire s’afficherait ici.");
-    // Exemple futur : Console.WriteLine(manager.GetRandomQuote());
+    Console.WriteLine(manager.GetRandomQuote());
 }
 
 static void AddNewQuote(QuoteManager manager)
 {
-    Console.WriteLine("[Simulation] On ajouterait une nouvelle citation ici.");
-    // Exemple futur :
-    // Console.Write("Texte : ");
-    // var texte = Console.ReadLine();
-    // Console.Write("Auteur : ");
-    // var auteur = Console.ReadLine();
-    // manager.AddQuote(texte, auteur);
-    // Console.WriteLine("Citation ajoutée !");
+    string texte;
+    string auteur;
+    bool texteValide = false;
+    bool auteurValide = false;
+
+    do
+    {
+        Console.Write("Texte : ");
+        texte = Console.ReadLine();
+        if (string.IsNullOrEmpty(texte))
+        {
+            Console.WriteLine("Vous devez entrer une citation");
+        }
+        else
+            texteValide = true;
+
+    } while (!texteValide);
+
+    do
+    {
+        Console.Write("Auteur : ");
+        auteur = Console.ReadLine();
+        if (string.IsNullOrEmpty(auteur))
+        {
+            Console.WriteLine("Vous indiquez l'auteur de la citation");
+        }
+        else
+            auteurValide = true;
+
+    } while (!texteValide);
+
+
+    manager.AddQuote(texte, auteur);
+    Console.WriteLine("Citation ajoutée !");
 }
 
 static void SaveQuotesToFile(QuoteManager manager)
 {
     try
     {
-        Console.WriteLine("[Simulation] On sauvegarderait les citations ici.");
-        // Exemple futur :
-        // manager.SaveToFile("citations.txt");
-        //Console.WriteLine("Citations sauvegardées !");
+        manager.LoadFromCSVFile("citation.csv");
+        Console.WriteLine("Citations sauvegardées !");
     }
     catch (Exception ex)
     {
@@ -91,6 +114,7 @@ static void LoadQuotesFromFile(QuoteManager manager)
     try
     {
         manager.LoadFromCSVFile("citations.csv");
+        Console.WriteLine("Citations chargées !");
     }
     catch (Exception ex)
     {
