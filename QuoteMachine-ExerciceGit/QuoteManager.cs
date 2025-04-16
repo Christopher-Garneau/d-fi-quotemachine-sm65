@@ -45,7 +45,7 @@ namespace QuoteMachine_ExerciceGit
             //SaveToFile_ShouldThrowIfNotInCSVExtension
 
             if (!path.EndsWith(".csv"))
-                throw new ArgumentException("Le fichier n'est pas un CSV.");
+                throw new QuoteFileException("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv");
 
             using (StreamWriter sw = new StreamWriter(path))
             {
