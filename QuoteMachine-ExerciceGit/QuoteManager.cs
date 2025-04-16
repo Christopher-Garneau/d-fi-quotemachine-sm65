@@ -37,7 +37,7 @@ namespace QuoteMachine_ExerciceGit
             _quotes.Add(new Quote { Text = text, Author = author });
 
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/add-quote");
+            //throw new NotImplementedException("À implémenter dans feature/add-quote");
         }
 
         public void SaveToCSVFile(string path)
