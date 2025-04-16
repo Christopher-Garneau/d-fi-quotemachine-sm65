@@ -43,8 +43,19 @@ namespace QuoteMachine_ExerciceGit
             //SaveToFile_ShouldCreateFile
             //SaveToFile_ShouldThrowIfNotInCSVExtension
 
+            if (!path.EndsWith(".csv"))
+                throw new QuoteFileException("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv");
+
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                foreach (var quote in _quotes)
+                {
+                    sw.WriteLine($"{quote.Text};{quote.Author}");
+                }
+            }
+
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/save-to-file");
+            //throw new NotImplementedException("À implémenter dans feature/save-to-file");
         }
 
         public void LoadFromCSVFile(string path)
