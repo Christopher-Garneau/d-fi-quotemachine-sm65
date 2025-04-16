@@ -100,7 +100,7 @@ static void SaveQuotesToFile(QuoteManager manager)
 {
     try
     {
-        manager.LoadFromCSVFile("citation.csv");
+        manager.SaveToCSVFile("citations.csv");
         Console.WriteLine("Citations sauvegardées !");
     }
     catch (Exception ex)
