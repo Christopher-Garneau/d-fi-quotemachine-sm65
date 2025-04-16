@@ -22,11 +22,8 @@ namespace QuoteMachine_ExerciceGit
 
         public Quote GetRandomQuote()
         {
-            //Avant de commencer, décommenter le test suivant:
-            //GetRandomQuote_ShouldReturnNonNullQuote
-
-            //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/random-quote");
+            int randomIndex = new Random().Next(_quotes.Count-1);
+            return _quotes[randomIndex];;
         }
 
         public void AddQuote(string text, string author)
@@ -34,8 +31,10 @@ namespace QuoteMachine_ExerciceGit
             //Avant de commencer, décommenter le test suivant:
             //AddQuote_ShouldIncreaseQuoteCount
 
+            _quotes.Add(new Quote { Text = text, Author = author });
+
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/add-quote");
+            //throw new NotImplementedException("À implémenter dans feature/add-quote");
         }
 
         public void SaveToCSVFile(string path)
@@ -44,25 +43,49 @@ namespace QuoteMachine_ExerciceGit
             //SaveToFile_ShouldCreateFile
             //SaveToFile_ShouldThrowIfNotInCSVExtension
 
+            if (!path.EndsWith(".csv"))
+                throw new QuoteFileException("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv");
+
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                foreach (var quote in _quotes)
+                {
+                    sw.WriteLine($"{quote.Text};{quote.Author}");
+                }
+            }
+
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/save-to-file");
+            //throw new NotImplementedException("À implémenter dans feature/save-to-file");
         }
 
         public void LoadFromCSVFile(string path)
         {
-            //Avant de commencer, décommenter les tests suivants:
-            //LoadFromFile_ShouldAppendQuotesToList
-            //LoadFromFile_ShouldThrowIfFileMissing
-            //LoadFromFile_ShouldThrowIfNotInCSVExtension
+            if (!IsCSVFile(path))
+            {
+                throw new QuoteFileException("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv");
+            }
 
-            //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
+            if (!File.Exists(path))
+            {
+                throw new QuoteFileException("Erreur lors du chargement : le fichier n'existe pas");
+            }
 
-            throw new NotImplementedException("À implémenter dans feature/load-from-file");
+            //https://stackoverflow.com/questions/5282999/reading-csv-file-and-storing-values-into-an-array
+            using (StreamReader reader = new StreamReader(path))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    _quotes.Add(new Quote() { Text = values[0], Author = values[1] });
+                }
+            }
         }
 
         public List<Quote> GetAllQuotes()
         {
-            return _quotes; // Pas besoin d'ajouter de test pour cette méthode
+            return _quotes;
         }
 
         private bool IsCSVFile(string path)
