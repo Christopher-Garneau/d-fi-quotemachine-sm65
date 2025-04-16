@@ -113,8 +113,8 @@ static void LoadQuotesFromFile(QuoteManager manager)
 {
     try
     {
-        Console.WriteLine("Citations chargées !");
         manager.LoadFromCSVFile("citations.csv");
+        Console.WriteLine("Citations chargées !");
     }
     catch (Exception ex)
     {
